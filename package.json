@@ -1,0 +1,24 @@
+{
+  "name": "saga-graphql",
+  "private": "true",
+  "version": "0.0.0",
+  "description": "Saga de GraphQL Fullstack de Platzi",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {},
+  "author": "@jonalvarezz",
+  "license": "MIT",
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "dependencies": {
+    "eslint": "8.x",
+    "prettier": "^2.8.1",
+    "typescript": "4.9.x"
+  }
+}

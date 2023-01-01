@@ -1,0 +1,7 @@
+{
+  "name": "ui",
+  "version": "0.0.0",
+  "description": "Frontend de nuestra aplicación con Next.js",
+  "main": "index.js",
+  "license": "MIT"
+}

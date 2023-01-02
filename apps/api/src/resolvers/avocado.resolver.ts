@@ -10,6 +10,17 @@ export const findAll: GraphQLFieldResolver<
 > = (parent, args, context) =>
   context.orm.avocado.findMany({ include: { attributes: true } })
 
+export const findOne: GraphQLFieldResolver<
+  unknown,
+  ResolverContext,
+  { id: string },
+  Promise<Avocado | null>
+> = (parent, args, context) =>
+  context.orm.avocado.findUnique({
+    where: { id: parseInt(args.id) },
+    include: { attributes: true },
+  })
+
 export const resolver: Record<
   keyof (Avocado & { attributes: Attributes }),
   GraphQLFieldResolver<

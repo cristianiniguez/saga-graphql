@@ -1,7 +1,7 @@
 scalar DateTime
 
 type Query {
-  avos: [Avocado]!
+  avos(skip: Int, take: Int): [Avocado]!
   avo(id: ID!): Avocado
 }
 
@@ -40,6 +40,7 @@ input AvoCreateInput {
   name: String!
   price: Float!
   image: String!
+  sku: String!
   description: String
   shape: String
   hardiness: String

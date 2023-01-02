@@ -1,14 +1,17 @@
 import { Attributes, Avocado } from '@prisma/client'
 import { GraphQLFieldResolver } from 'graphql'
-import { createHash } from 'crypto'
 
 export const findAll: GraphQLFieldResolver<
   unknown,
   ResolverContext,
-  unknown,
+  { skip?: number; take?: number },
   Promise<(Avocado & { attributes: Attributes | null })[]>
-> = (parent, args, context) =>
-  context.orm.avocado.findMany({ include: { attributes: true } })
+> = (parent, { skip, take }, context) =>
+  context.orm.avocado.findMany({
+    include: { attributes: true },
+    skip,
+    take,
+  })
 
 export const findOne: GraphQLFieldResolver<
   unknown,
@@ -51,17 +54,17 @@ export const create: GraphQLFieldResolver<
   unknown,
   ResolverContext,
   {
-    data: Pick<Avocado, 'name' | 'price' | 'image'> &
+    data: Pick<Avocado, 'name' | 'price' | 'image' | 'sku'> &
       Omit<Attributes, 'avocadoId'>
   },
   Promise<Avocado>
-> = (parent, { data: { name, price, image, ...attributes } }, context) =>
+> = (parent, { data: { name, price, image, sku, ...attributes } }, context) =>
   context.orm.avocado.create({
     data: {
       name,
       price,
       image,
-      sku: createHash('sha256').update(name, 'utf8').digest('base64').slice(-6),
+      sku,
       attributes: { create: attributes },
     },
   })

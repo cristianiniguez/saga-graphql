@@ -5,7 +5,6 @@ import * as scalars from './scalars'
 const resolvers: ApolloServerExpressConfig['resolvers'] = {
   ...scalars,
   Query: {
-    avo: avo.findOne,
     avos: avo.findAll,
   },
   Mutation: {

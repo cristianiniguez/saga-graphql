@@ -1,31 +1,29 @@
+import { Attributes, Avocado } from '@prisma/client'
+import { GraphQLFieldResolver } from 'graphql'
 import { createHash } from 'crypto'
-import { baseModelResolver } from './base.resolver'
 
-const avos: Avocado[] = [
-  {
-    createdAt: new Date(),
-    updatedAt: undefined,
-    deletedAt: undefined,
-    name: 'Pinkerton Avocado',
-    id: 'fpr72m9k',
-    sku: 'B4HZ42TM',
-    price: 1.27,
-    image: '/images/pinkerton.jpg',
-    attributes: {
-      description: 'First grown on the Pinkerton Ranch in Saticoy, California.',
-      shape: 'Long pear',
-      hardiness: '-1 ºC',
-      taste: 'Marvelous, is an avocado',
-    },
-  },
-]
+export const findAll: GraphQLFieldResolver<
+  unknown,
+  ResolverContext,
+  unknown,
+  Promise<(Avocado & { attributes: Attributes | null })[]>
+> = (parent, args, context) =>
+  context.orm.avocado.findMany({ include: { attributes: true } })
 
-export const findAll = (): Avocado[] => avos
+export const resolver: Record<
+  keyof (Avocado & { attributes: Attributes }),
+  GraphQLFieldResolver<
+    Avocado & { attributes: Attributes },
+    ResolverContext,
+    any,
+    unknown
+  >
+> = {
+  id: (parent) => parent.id,
+  createdAt: (parent) => parent.createdAt,
+  updatedAt: (parent) => parent.updatedAt,
+  deletedAt: (parent) => parent.deletedAt,
 
-export const findOne = (id: string): Avocado | null => avos[0]
-
-export const resolver: Record<keyof Avocado, (parent: Avocado) => unknown> = {
-  ...baseModelResolver,
   sku: (parent) => parent.sku,
   name: (parent) => parent.name,
   price: (parent) => parent.price,
@@ -38,30 +36,21 @@ export const resolver: Record<keyof Avocado, (parent: Avocado) => unknown> = {
   }),
 }
 
-export const create = (
-  parent: unknown,
+export const create: GraphQLFieldResolver<
+  unknown,
+  ResolverContext,
   {
-    data,
-  }: { data: Pick<Avocado, 'name' | 'price' | 'image'> & Avocado['attributes'] }
-): Avocado => {
-  const currentLength = avos.length
-  const { name, price, image, description, shape, hardiness, taste } = data
-
-  const newAvo: Avocado = {
-    id: String(currentLength + 1),
-    sku: createHash('sha256')
-      .update(data.name, 'utf8')
-      .digest('base64')
-      .slice(-6),
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    deletedAt: undefined,
-    name,
-    price,
-    image,
-    attributes: { description, shape, hardiness, taste },
-  }
-
-  avos.push(newAvo)
-  return newAvo
-}
+    data: Pick<Avocado, 'name' | 'price' | 'image'> &
+      Omit<Attributes, 'avocadoId'>
+  },
+  Promise<Avocado>
+> = (parent, { data: { name, price, image, ...attributes } }, context) =>
+  context.orm.avocado.create({
+    data: {
+      name,
+      price,
+      image,
+      sku: createHash('sha256').update(name, 'utf8').digest('base64').slice(-6),
+      attributes: { create: attributes },
+    },
+  })

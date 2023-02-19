@@ -1,4 +1,5 @@
 import { Attributes, Avocado } from '@prisma/client'
+import { AuthenticationError } from 'apollo-server-core'
 import { GraphQLFieldResolver } from 'graphql'
 
 export const findAll: GraphQLFieldResolver<
@@ -58,8 +59,10 @@ export const create: GraphQLFieldResolver<
       Omit<Attributes, 'avocadoId'>
   },
   Promise<Avocado>
-> = (parent, { data: { name, price, image, sku, ...attributes } }, context) =>
-  context.orm.avocado.create({
+> = (parent, { data: { name, price, image, sku, ...attributes } }, context) => {
+  if (!context.user) throw new AuthenticationError('Unauthenticated request')
+
+  return context.orm.avocado.create({
     data: {
       name,
       price,
@@ -68,3 +71,4 @@ export const create: GraphQLFieldResolver<
       attributes: { create: attributes },
     },
   })
+}

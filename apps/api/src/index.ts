@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 import resolvers from './resolvers'
 import app from './server'
 
-const typeDefs = readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8')
+const typeDefs = readFileSync(path.join(__dirname, '../schema.graphql'), 'utf8')
 const orm = new PrismaClient()
 
 const startServer = async () => {

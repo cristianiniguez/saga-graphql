@@ -1,13 +1,15 @@
 {
   "name": "saga-graphql",
-  "private": "true",
+  "private": true,
   "version": "0.0.0",
   "description": "Saga de GraphQL Fullstack de Platzi",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "build": "turbo run build"
+  },
   "author": "@jonalvarezz",
   "license": "MIT",
   "prettier": {
@@ -18,7 +20,10 @@
   },
   "dependencies": {
     "eslint": "8.x",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.4",
     "typescript": "4.9.x"
+  },
+  "devDependencies": {
+    "turbo": "^1.8.2"
   }
 }

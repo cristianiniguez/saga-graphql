@@ -1,9 +1,10 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+dist
+tmp
+out-tsc
+.next
 
 # dependencies
 node_modules
@@ -44,3 +45,6 @@ Thumbs.db
 # .sqlite
 *.db
 *.db-journal
+
+# turborepo
+.turbo

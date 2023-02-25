@@ -6,7 +6,7 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import resolvers from '../resolvers'
 
-const schema = readFileSync(path.join(__dirname, '../schema.graphql'), 'utf8')
+const schema = readFileSync(path.join(__dirname, './schema.graphql'), 'utf8')
 const tester = new EasyGraphQLTester(schema, resolvers)
 
 export type MockResolverContext = {

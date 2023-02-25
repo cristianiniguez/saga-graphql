@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "create:admin": "ts-node createAdmin.ts"
+    "test": "jest src",
+    "create:admin": "ts-node src/createAdmin.ts"
   },
   "dependencies": {
     "apollo-server-core": "^3.11.1",
@@ -21,10 +22,16 @@
   "devDependencies": {
     "@prisma/client": "^4.10.1",
     "@types/bcrypt": "^5.0.0",
+    "@types/jest": "^29.4.0",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.11.18",
     "@types/prompt": "^1.1.5",
+    "easygraphql-tester": "^6.0.1",
+    "graphql-tag": "^2.12.6",
+    "jest": "^29.4.3",
+    "jest-mock-extended": "^3.0.2",
     "nodemon": "^2.0.20",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "tsconfig": "*"
   }

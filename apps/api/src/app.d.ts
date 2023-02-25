@@ -1,3 +1,5 @@
+declare module 'easygraphql-tester'
+
 namespace Express {
   interface User {
     id: number

@@ -10,6 +10,8 @@ import app from './server'
 const typeDefs = readFileSync(path.join(__dirname, '../schema.graphql'), 'utf8')
 const orm = new PrismaClient()
 
+const port = process.env.PORT || 4000
+
 const startServer = async () => {
   // Required logic to integrate with Express
   const httpServer = http.createServer(app)
@@ -38,10 +40,12 @@ const startServer = async () => {
 
   // Modified server startup
   await new Promise<void>((resolve) => {
-    httpServer.listen({ port: 4000 }, resolve)
+    httpServer.listen({ port }, resolve)
   })
 
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  console.log(
+    `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+  )
 }
 
 startServer()

@@ -51,3 +51,6 @@ Thumbs.db
 
 # docker
 .docker
+
+# vscode
+.vscode

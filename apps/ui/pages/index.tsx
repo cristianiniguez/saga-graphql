@@ -37,8 +37,8 @@ const useAvos = () => {
 
     try {
       const response = await getAvos()
-      const { data } = (await response.json()) as { data: TProduct[] }
-      setData(data)
+      const { data } = (await response.json()) as { data: { avos: TProduct[] } }
+      setData(data.avos)
       setStatus('success')
     } catch (e) {
       setStatus('error')

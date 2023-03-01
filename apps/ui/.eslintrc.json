@@ -1,0 +1,6 @@
+{
+  "extends": ["eslint:recommended", "next"],
+  "rules": {
+    "react/jsx-no-target-blank": "warn"
+  }
+}

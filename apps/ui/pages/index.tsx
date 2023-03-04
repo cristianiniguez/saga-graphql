@@ -1,41 +1,38 @@
-import { useQuery } from 'react-query'
-import Layout from '@components/Layout/Layout'
+import { gql, useQuery } from '@apollo/client'
 import { Card } from 'semantic-ui-react'
+import Layout from '@components/Layout/Layout'
 import KawaiiHeader from '@components/KawaiiHeader/KawaiiHeader'
-import Request from '@utils/request'
 
-const query = `
-  query {
-    avos {
-      id
-      image
-      name
-      createdAt
-      sku
-      attributes {
-        description
-        taste
-        shape
-        hardiness
-      }
-    }
+const avoFragment = `
+  id
+  image
+  name
+  createdAt
+  sku
+  attributes {
+    description
+    taste
+    shape
+    hardiness
   }
 `
 
-const getAvocados = async () => {
-  const { data } = await Request.post<{ data: { avos: TProduct[] } }>(
-    '/graphql',
-    { query }
-  )
-  return data.avos
+const useAvocados = () => {
+  const query = gql`
+    query {
+      avos {
+        ${avoFragment}
+      }
+    }
+  `
+
+  return useQuery(query)
 }
 
-const useAvocados = () => useQuery('avocados', getAvocados)
-
 const HomePage = () => {
-  const { data, status } = useAvocados()
+  const { data, loading, error } = useAvocados()
 
-  console.log({ data, status })
+  console.log({ data, loading, error })
 
   return (
     <Layout title="Home">

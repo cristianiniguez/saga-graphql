@@ -19,7 +19,7 @@
     "paths": {
       "@components/*": ["components/*"],
       "@store/*": ["store/*"],
-      "@utils/*": ["utils/*"],
+      "@gql/*": ["gql/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

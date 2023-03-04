@@ -8,7 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen -r dotenv/config --config codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.7.9",
@@ -21,7 +22,9 @@
     "semantic-ui-react": "^2.1.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^3.2.1",
+    "@graphql-codegen/cli": "3.2.1",
+    "@graphql-codegen/client-preset": "2.1.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@types/node": "^18.14.2",
     "@types/react": "^18.0.28",
     "autoprefixer": "^10.4.13",

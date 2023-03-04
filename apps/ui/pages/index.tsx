@@ -1,36 +1,10 @@
-import { gql, useQuery } from '@apollo/client'
+import { useGetAllAvosQuery } from '@gql/index'
 import { Card } from 'semantic-ui-react'
 import Layout from '@components/Layout/Layout'
 import KawaiiHeader from '@components/KawaiiHeader/KawaiiHeader'
 
-const avoFragment = `
-  id
-  image
-  name
-  createdAt
-  sku
-  attributes {
-    description
-    taste
-    shape
-    hardiness
-  }
-`
-
-const useAvocados = () => {
-  const query = gql`
-    query {
-      avos {
-        ${avoFragment}
-      }
-    }
-  `
-
-  return useQuery(query)
-}
-
 const HomePage = () => {
-  const { data, loading, error } = useAvocados()
+  const { data, loading, error } = useGetAllAvosQuery()
 
   console.log({ data, loading, error })
 

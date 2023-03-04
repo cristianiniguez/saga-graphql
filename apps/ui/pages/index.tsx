@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 import Layout from '@components/Layout/Layout'
 import { Card } from 'semantic-ui-react'
 import KawaiiHeader from '@components/KawaiiHeader/KawaiiHeader'
+import Request from '@utils/request'
 
 const query = `
   query {
@@ -21,40 +22,18 @@ const query = `
   }
 `
 
-const getAvos = () =>
-  fetch(`${process.env.NEXT_PUBLIC_API_URL}/graphql`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query }),
-  })
-
-const useAvos = () => {
-  const [data, setData] = useState<TProduct[]>([])
-  const [status, setStatus] = useState<RequestStatus>('idle')
-
-  const fetchItems = async () => {
-    setStatus('loading')
-
-    try {
-      const response = await getAvos()
-      const { data } = (await response.json()) as { data: { avos: TProduct[] } }
-      setData(data.avos)
-      setStatus('success')
-    } catch (e) {
-      setStatus('error')
-      console.log('Something went wrong', e)
-    }
-  }
-
-  useEffect(() => {
-    fetchItems()
-  }, [])
-
-  return { data, status }
+const getAvocados = async () => {
+  const { data } = await Request.post<{ data: { avos: TProduct[] } }>(
+    '/graphql',
+    { query }
+  )
+  return data.avos
 }
 
+const useAvocados = () => useQuery('avocados', getAvocados)
+
 const HomePage = () => {
-  const { data, status } = useAvos()
+  const { data, status } = useAvocados()
 
   console.log({ data, status })
 

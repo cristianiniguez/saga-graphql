@@ -5,12 +5,8 @@ const config: CodegenConfig = {
   schema: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
   documents: './gql/queries.graphql',
   generates: {
-    'gql/index.tsx': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
+    'gql/generated/': {
+      preset: 'client',
     },
   },
 }

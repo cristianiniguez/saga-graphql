@@ -1,12 +1,38 @@
-import { useGetAllAvosQuery } from '@gql/index'
+import { GetStaticProps, NextPage } from 'next'
+import client from '@gql/client'
+import { GetAllAvosDocument, Avocado } from '@gql/generated/graphql'
 import { Card } from 'semantic-ui-react'
 import Layout from '@components/Layout/Layout'
 import KawaiiHeader from '@components/KawaiiHeader/KawaiiHeader'
 
-const HomePage = () => {
-  const { data, loading, error } = useGetAllAvosQuery()
+type HomePageProps = {
+  products: Avocado[]
+}
 
-  console.log({ data, loading, error })
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  try {
+    const response = await client.query({ query: GetAllAvosDocument })
+
+    const products: Avocado[] = []
+    response.data.avos.forEach((avo) => avo && products.push(avo))
+
+    return {
+      props: {
+        products,
+      },
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      props: {
+        products: [],
+      },
+    }
+  }
+}
+
+const HomePage: NextPage<HomePageProps> = ({ products }) => {
+  console.log(products)
 
   return (
     <Layout title="Home">

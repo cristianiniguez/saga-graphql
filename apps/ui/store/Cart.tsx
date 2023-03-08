@@ -1,6 +1,7 @@
 import React, { Dispatch, useContext, useReducer } from 'react'
+import type { AvocadoFragment } from '@gql/generated/graphql'
 
-export type CartItemType = TProduct & { quantity: number }
+export type CartItemType = AvocadoFragment & { quantity: number }
 
 export type CartState = {
   [key: string]: CartItemType
@@ -8,7 +9,7 @@ export type CartState = {
 
 export type CartAction = {
   type: 'add' | 'remove'
-  item: TProduct
+  item: AvocadoFragment
   quantity?: number
 }
 
@@ -115,14 +116,14 @@ export const useCart = () => {
 export const useCartMutations = () => {
   const dispatch = useContext(CartDispatchContext)
 
-  const addToCart = (product: TProduct, quantity?: number) =>
+  const addToCart = (product: AvocadoFragment, quantity?: number) =>
     dispatch({
       type: 'add',
       item: product,
       quantity,
     })
 
-  const removeFromCart = (product: TProduct) =>
+  const removeFromCart = (product: AvocadoFragment) =>
     dispatch({
       type: 'remove',
       item: product,

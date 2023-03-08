@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Loader } from 'semantic-ui-react'
 
 import { useCurrentUser } from '@store/Auth'

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import { ReactNode } from 'react'
 import { Container } from 'semantic-ui-react'
 import Head from 'next/head'
 
@@ -8,7 +8,7 @@ import Footer from '@components/Footer/Footer'
 const siteTitle = 'Platzi GraphQL'
 
 type LayoutProps = {
-  children?: React.ReactNode
+  children?: ReactNode
   title?: string
 }
 

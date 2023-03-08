@@ -1,11 +1,12 @@
-import React from 'react'
 import Link from 'next/link'
 import { Item, Button, Loader, Message } from 'semantic-ui-react'
 import { CartItemType } from '@store/Cart'
+import type { AvocadoFragment } from '@gql/generated/graphql'
 
 type CartItemListProps = {
   items: CartItemType[]
-  removeFromCart: (product: TProduct) => void
+  // eslint-disable-next-line
+  removeFromCart: (product: AvocadoFragment) => void
   loading?: boolean
 }
 
@@ -34,7 +35,9 @@ const CartItemList = ({
         childKey: id,
         header: (
           <Item.Header>
-            <Link href={`/product/${id}/`}>{name}</Link>
+            <Link href={`/product/${id}/`}>
+              <a>{name}</a>
+            </Link>
           </Item.Header>
         ),
         image: (

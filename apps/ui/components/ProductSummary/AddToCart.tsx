@@ -1,15 +1,16 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Input, Icon, Transition } from 'semantic-ui-react'
+import type { AvocadoFragment } from '@gql/generated/graphql'
 import { useCartMutations } from '@store/Cart'
 
 type AddToCartProps = {
-  product: TProduct
+  product: AvocadoFragment
 }
 
 // Fake a server Response, we don't care on this project
 // about data persistency, but you may add it :)
 const addToCartRequest = () =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     window.setTimeout(resolve, 600)
   })
 

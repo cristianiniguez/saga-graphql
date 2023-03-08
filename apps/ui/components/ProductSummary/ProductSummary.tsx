@@ -1,19 +1,23 @@
-import React from 'react'
+import { FC } from 'react'
+import Image from 'next/image'
 import { Item, Label } from 'semantic-ui-react'
+
+import { AvocadoFragment } from '@gql/generated/graphql'
+import { getImgUrl } from '@service/assets'
 
 import AddToCart from './AddToCart'
 import ProductAttributes from './ProductAttributes'
 
 type ProductSummaryProps = {
-  product: TProduct
+  product: AvocadoFragment
 }
 
-const ProductSummary = ({ product }: ProductSummaryProps) => (
+const ProductSummary: FC<ProductSummaryProps> = ({ product }) => (
   <>
     <Item.Group as="section">
       <Item style={{ alignItems: 'center' }}>
         <Item.Image size="medium">
-          <img src={product.image} alt={product.name} />
+          <Image src={getImgUrl(product.image)} alt={product.name} />
         </Item.Image>
         <Item.Content>
           <Item.Header as="h1">{product.name}</Item.Header>

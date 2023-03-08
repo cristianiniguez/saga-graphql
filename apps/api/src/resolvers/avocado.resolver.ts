@@ -70,5 +70,6 @@ export const create: GraphQLFieldResolver<
       sku,
       attributes: { create: attributes },
     },
+    include: { attributes: true },
   })
 }

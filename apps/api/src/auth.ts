@@ -38,11 +38,11 @@ export const verifyToken = (req: Request): UserJwtPayload => {
 
   try {
     const verified = jwt.verify(token, JWT_SECRET_KEY)
-    if (typeof verified === 'string') return { exp: 0, iat: 0, id: 0 }
+    if (typeof verified === 'string') throw new Error()
     return {
       exp: verified.exp || 0,
       iat: verified.iat || 0,
-      id: parseInt(verified.sub || ''),
+      id: parseInt(verified.id || ''),
     }
   } catch (error) {
     throw new Error('Invalid token')

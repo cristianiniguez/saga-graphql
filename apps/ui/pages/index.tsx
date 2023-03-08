@@ -1,9 +1,9 @@
 import { GetStaticProps, NextPage } from 'next'
 import client from '@gql/client'
 import { GetAllAvosDocument, Avocado } from '@gql/generated/graphql'
-import { Card } from 'semantic-ui-react'
 import Layout from '@components/Layout/Layout'
 import KawaiiHeader from '@components/KawaiiHeader/KawaiiHeader'
+import ProductList from '@components/ProductList/ProductList'
 
 type HomePageProps = {
   products: Avocado[]
@@ -32,22 +32,10 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 }
 
 const HomePage: NextPage<HomePageProps> = ({ products }) => {
-  console.log(products)
-
   return (
     <Layout title="Home">
       <KawaiiHeader />
-      <Card.Group itemsPerRow={2} centered>
-        {documentationList.map((doc) => (
-          <Card
-            key={doc.link}
-            href={doc.link}
-            header={doc.title}
-            meta={doc.meta}
-            description={doc.description}
-          />
-        ))}
-      </Card.Group>
+      <ProductList products={products} />
     </Layout>
   )
 }
